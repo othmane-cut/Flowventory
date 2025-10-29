@@ -47,7 +47,7 @@ public class ProductController {
                 .orElseThrow(() -> new IllegalArgumentException("Produit invalide : " + id));
         model.addAttribute("product", product);
         model.addAttribute("types", ProductType.values());
-        return "editProduct";
+        return "editProduction";
     }
 
     @PostMapping("/product/{id}")
@@ -57,7 +57,7 @@ public class ProductController {
                                 Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("types", ProductType.values());
-            return "editProduct";
+            return "editProduction";
         }
         productRepository.save(product);
         return "redirect:/";

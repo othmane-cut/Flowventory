@@ -2,13 +2,17 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Create Product</title>
+    <title>Edit Product</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
 <div class="container mt-4">
     <h2>Edit Product</h2>
-    <form th:action="@{/product/{id}(id=${product.id})}" ... method="post">        <div class="form-group">
+
+    <!-- Bind the form to the "product" object -->
+    <form th:action="@{/product/{id}(id=${product.id})}" th:object="${product}" method="post">
+
+        <div class="form-group">
             <label>Type</label>
             <select th:field="*{productType}" class="form-control">
                 <option value="">Select Type</option>
@@ -16,26 +20,31 @@
             </select>
             <div th:if="${#fields.hasErrors('productType')}" th:errors="*{productType}" class="text-danger"></div>
         </div>
+
         <div class="form-group">
             <label>Brand</label>
             <input type="text" th:field="*{brand}" class="form-control">
             <div th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}" class="text-danger"></div>
         </div>
+
         <div class="form-group">
             <label>Model</label>
             <input type="text" th:field="*{model}" class="form-control">
             <div th:if="${#fields.hasErrors('model')}" th:errors="*{model}" class="text-danger"></div>
         </div>
+
         <div class="form-group">
             <label>Year</label>
             <input type="number" th:field="*{year}" class="form-control">
             <div th:if="${#fields.hasErrors('year')}" th:errors="*{year}" class="text-danger"></div>
         </div>
+
         <div class="form-group">
             <label>Price</label>
             <input type="number" step="0.01" th:field="*{price}" class="form-control">
             <div th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="text-danger"></div>
         </div>
+
         <button type="submit" class="btn btn-primary">Save</button>
         <a href="/" class="btn btn-secondary">Cancel</a>
     </form>

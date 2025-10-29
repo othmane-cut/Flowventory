@@ -19,6 +19,7 @@ public class Product {
     private Long id;
 
     @NotNull(message = "Le type est obligatoire")
+    @Enumerated(EnumType.STRING)
     private ProductType productType;
 
     @NotBlank(message = "La marque est obligatoire")
