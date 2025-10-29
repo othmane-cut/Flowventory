@@ -1,24 +1,25 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout}">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech Store</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Accueil</title>
 </head>
+
 <body>
-<div class="container mt-4">
-    <h1>Products</h1>
-    <a href="/product/new" class="btn btn-primary">Add New Product</a>
-    <table class="table table-striped mt-3">
+<main layout:fragment="content">
+    <h1>Liste des produits</h1>
+    <a href="/product/new" class="btn btn-primary mb-3">Ajouter un produit</a>
+    <table class="table table-striped">
         <thead>
         <tr>
             <th>ID</th>
             <th>Type</th>
-            <th>Brand</th>
-            <th>Model</th>
-            <th>Price</th>
-            <th>Year</th>
+            <th>Marque</th>
+            <th>Modèle</th>
+            <th>Prix</th>
+            <th>Année</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -31,12 +32,12 @@
             <td th:text="${product.price}"></td>
             <td th:text="${product.year}"></td>
             <td>
-                <a th:href="@{/product/edit/{id}(id=${product.id})}" class="btn btn-sm btn-primary">Edit</a>
+                <a th:href="@{/product/edit/{id}(id=${product.id})}" class="btn btn-sm btn-primary">Modifier</a>
                 <a th:href="@{/product/delete/{id}(id=${product.id})}" class="btn btn-danger">Delete</a>
             </td>
         </tr>
         </tbody>
     </table>
-</div>
+</main>
 </body>
 </html>
