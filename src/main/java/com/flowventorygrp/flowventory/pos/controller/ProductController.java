@@ -7,6 +7,10 @@ import com.flowventorygrp.flowventory.pos.model.ProductType;
 import com.flowventorygrp.flowventory.pos.repository.ProductRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,8 +23,21 @@ public class ProductController {
     private final ProductRepository productRepository;
 
     @GetMapping("/")
-    public String index(Model model) {
-        model.addAttribute("products", productRepository.findAll());
+    public String index(@RequestParam(defaultValue = "0") int page, Model model) {
+        // Crée un objet Pageable pour définir la page, la taille et l’ordre d’affichage
+        Pageable pageable = PageRequest.of(page, 10, Sort.by("id").descending());
+
+        // Récupère une page de produits depuis la base de données
+        Page<Product> productPage = productRepository.findAll(pageable);
+
+        // Envoie la liste des produits à la vue (seulement les 10 de la page actuelle)
+        model.addAttribute("products", productPage.getContent());
+
+        // Envoie les infos nécessaires pour la pagination
+        model.addAttribute("currentPage", page); // numéro de la page actuelle
+        model.addAttribute("totalPages", productPage.getTotalPages()); // nombre total de pages
+
+        // Retourne la vue index.html
         return "index";
     }
 
